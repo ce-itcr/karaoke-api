@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const songsRouter = require('./routes/songs');
-const {find} = require('./shared/database');
+const {findSong} = require('./shared/database');
 
 const PORT = process.env.PORT || 5000;
 
@@ -19,4 +19,4 @@ app.delete('*', (req, res)  => { res.status(405).send('Method does not exist'); 
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}...`));
 
-find();
+findSong();

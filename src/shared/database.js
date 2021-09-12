@@ -1,15 +1,20 @@
 // connection with mongodb 
-let uri = 'mongodb+srv://prueba:prueba123@cluster0.ftfng.mongodb.net/Test?retryWrites=true&w=majority';
+let uri = 'mongodb+srv://Admin:Admin@karaoke.geity.mongodb.net/KaraokeDB?retryWrites=true&w=majority';
 let mongoose = require('mongoose');
 mongoose.connect(uri, () => console.log('DB conectada'));
 
 let userSchema = new mongoose.Schema({
-    Name : {type : String, required : true},
-    LastName : String,
-    Age : Number
-}, { collection: 'TestCN' });
+    songName : String,
+    songAuthor : String,
+    songAlbum : String,
+    songLyrics : String,
+    creationAuthor : String,
+    creationDate : String,
+    modificationAuthor : String,
+    modificationDate : String,
+}, { collection: 'Songs' });
 
-let user = mongoose.model('User', userSchema);
+let song = mongoose.model('Songs', userSchema);
 
 /*user.create({ Name: 'Albert', LastName: 'Bezos', Age: 32 }, function (err, data) {
     if (err){
@@ -19,17 +24,17 @@ let user = mongoose.model('User', userSchema);
     }
 });*/
 
-find = () => {
-    user.findOne({Name : 'John'}, (error, data) =>
+findSong = () => {
+    song.findOne({songName : 'Casin'}, (error, data) =>
     {
     if(error){
         console.log(error);
     }else{
-        console.log(data)
+        console.log(data);
     }
 })
 }
 
 
 
-module.exports = {find}
+module.exports = {findSong}
