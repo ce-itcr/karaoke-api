@@ -1,3 +1,4 @@
+
 // connection with mongodb 
 let uri = 'mongodb+srv://Admin:Admin@karaoke.geity.mongodb.net/KaraokeDB?retryWrites=true&w=majority';
 let mongoose = require('mongoose');
@@ -11,21 +12,39 @@ let userSchema = new mongoose.Schema({
     creationAuthor : String,
     creationDate : String,
     modificationAuthor : String,
-    modificationDate : String,
+    modificationDate : String
 }, { collection: 'Songs' });
 
 let song = mongoose.model('Songs', userSchema);
 
-/*user.create({ Name: 'Albert', LastName: 'Bezos', Age: 32 }, function (err, data) {
-    if (err){
-        console.log(err);
-    }else{
-        console.log(data);
-    }
-});*/
+/*
+createSong = (name, author, album, lyrics, cAuthor, cDate, mAuthor, mDate) => {
 
-findSong = () => {
-    song.findOne({songName : 'Casin'}, (error, data) =>
+    song.create({ 
+
+        songName : name,
+        songAuthor : author,
+        songAlbum : album,
+        songLyrics : lyrics,
+        creationAuthor : cAuthor,
+        creationDate : cDate,
+        modificationAuthor : mAuthor,
+        modificationDate : mDate
+
+     }, function (err, data) {
+        if (err){
+            console.log(err);
+        }else{
+            console.log(data);
+        }
+    });
+
+}*/
+
+
+
+findSong = (tune) => {
+    song.findOne({songName : tune}, (error, data) =>
     {
     if(error){
         console.log(error);
