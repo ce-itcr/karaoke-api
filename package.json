@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/ce-itcr/karaoke-api#readme",
   "dependencies": {
+    "@keycloak/keycloak-admin-client": "^15.0.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "joi": "^17.4.2",

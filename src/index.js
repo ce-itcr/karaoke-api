@@ -1,4 +1,4 @@
-let adminClient = require('keycloak-admin-client')
+let adminClient = require('@keycloak/keycloak-admin-client').default;
 
 const express = require('express');
 const cors = require('cors');
@@ -26,18 +26,29 @@ app.listen(PORT, () => console.log(`Listening on port ${PORT}...`));
 //createSong('Mr Blue Sky', 'ELO', 'Out Of The Blue',"Hey hey mr blue",'Agustin', '11/09/2021', 'NA', 'NA')
 
 let settings = {
-    baseUrl: 'http://localhost:8180/auth',
-    username: 'Agven',
-    password: 'j4s21g5st3n',
-    grant_type: 'password',
-    client_id: 'nodejsClient'
+    auth:'true',
+    username: 'prueba',
+    password: 'prueba',
+    grantType: 'password',
+    clientId: 'Karaoke'
   };
 
-adminClient(settings).then((client) => {
-    console.log('client', client);
-    client.realms.find().then((realms) => {
-        console.log('Credenciales Correctas')
-        });
-    }).catch((err) => {
-        console.log('Credenciales Incorrectas');
-});
+//adminClient(settings).then((client) => {
+//    console.log('client', client);
+//    client.users.find('prueba').then((users) => {
+//        console.log('Credenciales Correctas')
+//        }).catch(err => {
+//            console.log('Error encontrando los clientes');
+//        });
+//    }).catch((err) => {
+//        console.log('Credenciales Incorrectas');
+//});
+
+const kcAdminClient = new adminClient({baseUrl:'http://localhost:8080/auth', realmName:'KaraokeAuth'}); 
+
+ kcAdminClient.auth(settings);
+
+
+const users = kcAdminClient.users.find();
+
+console.log(users);
