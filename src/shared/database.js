@@ -62,4 +62,13 @@ updateSong = (filter, update) => {
     });
 }
 
-module.exports = {findSong, createSong, updateSong};
+deleteSong = (filter) => {
+    song.deleteOne(filter, (error, data) => {
+        if(error){
+            console.log('Error al eliminar cancion');
+        }else{
+            console.log('Cancion eliminada correctamente');
+        }
+    });
+}
+module.exports = {findSong, createSong, updateSong, deleteSong};
