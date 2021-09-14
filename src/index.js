@@ -1,9 +1,11 @@
 let adminClient = require('@keycloak/keycloak-admin-client').default;
+let Issuer = require('openid-client');
+var issuer = Issuer.Issuer;
 
 const express = require('express');
 const cors = require('cors');
 const songsRouter = require('./routes/songs');
-const {findSong} = require('./shared/database');
+const {findSong, createSong, updateSong} = require('./shared/database');
 const { set } = require('mongoose');
 
 const PORT = process.env.PORT || 5000;
@@ -22,33 +24,16 @@ app.delete('*', (req, res)  => { res.status(405).send('Method does not exist'); 
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}...`));
 
-//findSong('Casin');
+//findSong({songName:'Casin',songAuthor:'glue70'});
 //createSong('Mr Blue Sky', 'ELO', 'Out Of The Blue',"Hey hey mr blue",'Agustin', '11/09/2021', 'NA', 'NA')
+updateSong({
 
-let settings = {
-    auth:'true',
-    username: 'prueba',
-    password: 'prueba',
-    grantType: 'password',
-    clientId: 'Karaoke'
-  };
+  songName:'Casin',
+  songAuthor:'glue70'
 
-//adminClient(settings).then((client) => {
-//    console.log('client', client);
-//    client.users.find('prueba').then((users) => {
-//        console.log('Credenciales Correctas')
-//        }).catch(err => {
-//            console.log('Error encontrando los clientes');
-//        });
-//    }).catch((err) => {
-//        console.log('Credenciales Incorrectas');
-//});
+},{
 
-const kcAdminClient = new adminClient({baseUrl:'http://localhost:8080/auth', realmName:'KaraokeAuth'}); 
+  modificationAuthor:'Momboñombo Moñagallo'
 
- kcAdminClient.auth(settings);
+});
 
-
-const users = kcAdminClient.users.find();
-
-console.log(users);

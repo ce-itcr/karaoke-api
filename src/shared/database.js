@@ -17,7 +17,7 @@ let userSchema = new mongoose.Schema({
 
 let song = mongoose.model('Songs', userSchema);
 
-/*
+
 createSong = (name, author, album, lyrics, cAuthor, cDate, mAuthor, mDate) => {
 
     song.create({ 
@@ -39,12 +39,10 @@ createSong = (name, author, album, lyrics, cAuthor, cDate, mAuthor, mDate) => {
         }
     });
 
-}*/
+}
 
-
-
-findSong = (tune) => {
-    song.findOne({songName : tune}, (error, data) =>
+findSong = (filter) => {
+    song.findOne(filter, (error, data) =>
     {
     if(error){
         console.log(error);
@@ -54,6 +52,14 @@ findSong = (tune) => {
 })
 }
 
+updateSong = (filter, update) => {
+    song.updateOne(filter, update, (error, data) => {
+        if(error){
+            console.log('Error al modificar cancion');
+        }else{
+            console.log('Cancion modificada correctamente');
+        }
+    });
+}
 
-
-module.exports = {findSong}
+module.exports = {findSong, createSong, updateSong};
