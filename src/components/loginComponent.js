@@ -1,36 +1,35 @@
 let adminClient = require('@keycloak/keycloak-admin-client').default;
-let Issuer = require('openid-client');
-var issuer = Issuer.Issuer;
+let Issuer = require('openid-client').Issuer;
 
 let settings = {
     auth:'true',
-    username: 'jonitho99',
-    password: 'admin',
+    username: 'prueba',
+    password: 'prueba',
     grantType: 'password', 
-    clientId: 'KaraokeAdminClient'
+    clientId: 'Karaoke'
   };
 
-const kcAdminClient = new adminClient({baseUrl:'http://localhost:8180/auth', realmName:'KaraokeAuth'}); 
+login = async function () {
 
-kcAdminClient.auth(settings);
+const kcAdminClient = new adminClient({baseUrl:'http://localhost:8080/auth', realmName:'KaraokeAuth'}); 
 
-const keycloakIssuer = issuer.discover(
-  'http://localhost:8180/auth/realms/KaraokeAuth',
+await kcAdminClient.auth(settings);
+
+const keycloakIssuer = await Issuer.discover(
+  'http://localhost:8080/auth/realms/KaraokeAuth',
 );
 
 const client = new keycloakIssuer.Client({
-  client_id: 'KaraokeAdminClient', // Same as `clientId` passed to client.auth()
-  token_endpoint_auth_method: 'none', // to send only client_id in the header
+  client_id: 'Karaoke',
+  token_endpoint_auth_method: 'none',
 });
 
-// Use the grant type 'password'
-let tokenSet = client.grant({
+let tokenSet = await client.grant({
   grant_type: 'password',
-  username: 'jonitho99',
-  password: 'admin',
+  username: 'prueba',
+  password: 'prueba',
 });
 
-// Periodically using refresh_token grant flow to get new access token here
 setInterval(async () => {
   const refreshToken = tokenSet.refresh_token;
   tokenSet = await client.refresh(refreshToken);
@@ -38,6 +37,9 @@ setInterval(async () => {
 }, 58 * 1000);
 
 
-const users = kcAdminClient.users.find();
+const users = await kcAdminClient.users.find();
 
 console.log(users);
+};
+
+module.exports = {login};

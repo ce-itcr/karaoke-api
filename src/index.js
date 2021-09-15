@@ -7,6 +7,7 @@ const cors = require('cors');
 const songsRouter = require('./routes/songs');
 const {findSong, createSong, updateSong, deleteSong} = require('./shared/database');
 const { set } = require('mongoose');
+const {login} = require('./components/loginComponent');
 
 const PORT = process.env.PORT || 5000;
 
@@ -30,3 +31,5 @@ app.listen(PORT, () => console.log(`Listening on port ${PORT}...`));
 
 //deleteSong({songName:'Mr Blue Sky', songAuthor:'ELO'});
 
+
+login();
