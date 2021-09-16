@@ -29,14 +29,15 @@ login = async function (req, res) {
   try {
     let tokenSet = await client.grant({
       grant_type: 'password',
-      username: credentials.username,
-      password: credentials.password,
+      username: 'agus',
+      password: 'agus'
     });
-    const users = await kcAdminClient.users.find();
+    const users = await kcAdminClient.users.findOne({"username": credentials.username, "password":credentials.password});
       
-    console.log(users[0]);
+    console.log(users);
 
-    res.status(200).send(users[0]);
+    res.status(200).send({"username":users[0].username, "email":users[0].email,
+     "firstName":users[0].firstName, "lastName":users[0].lastName, "membership":users.attributes.membership[0]});
 
   } catch (error) {
     res.status(400).send(false);
