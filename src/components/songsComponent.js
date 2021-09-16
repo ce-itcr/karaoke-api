@@ -29,13 +29,29 @@ const updateSongInfo = (req, res) => {
 
 // post song file
 const postSong = (req, res) => {
-    res.status(200).send('postSong');
+    const data = JSON.parse(req.params.data);
+    console.log(data);
+    song.create(data, function (err, info) {
+        if (err){
+            res.status(400).send('Error al crear cancion');
+        }else{
+            res.status(200).send('Cancion creada');
+        }
+    });
 };
 
 
 // delete song file
 const deleteSelectedSong = (req, res) => {
-    res.status(200).send('deleteSong');
+    const filter = JSON.parse(req.params.filter);
+    song.deleteOne(filter, (error, data) => {
+        if(error){
+            res.status(400).send('Error al eliminar cancion');
+        }else{
+            res.status(200).send('Cancion eliminada correctamente');
+        }
+    });
+    
 };
 
 // get song lyrics

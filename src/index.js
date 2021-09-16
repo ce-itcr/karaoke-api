@@ -26,7 +26,7 @@ app.delete('*', (req, res)  => { res.status(405).send('Method does not exist'); 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}...`));
 
 //findSong({songName:'Casin',songAuthor:'glue70'});
-//createSong('Mr Blue Sky', 'ELO', 'Out Of The Blue',"Hey hey mr blue",'Agustin', '11/09/2021', 'NA', 'NA')
+//createSong({songName:'Mr Blue Sky', songAuthor:'ELO', songAlbum:'Out Of The Blue', songLyrics:"Hey hey mr blue", creationAuthor:'Agustin', creationDate:'11/09/2021', modificationAuthor:'NA', modificationDate:'NA'})
 //updateSong({ songName:'Casin', songAuthor:'glue70'},{modificationAuthor:'Momboñombo Moñagallo'});
 //deleteSong({songName:'Mr Blue Sky', songAuthor:'ELO'});
-//login();
+//login(); 
