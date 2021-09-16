@@ -11,6 +11,7 @@ let settings = {
 
 login = async function (req, res) {
 
+  
   const kcAdminClient = new adminClient({baseUrl:'http://localhost:8180/auth', realmName:'karaoke'}); 
   const credentials = JSON.parse(req.params.credentials);
 
@@ -29,15 +30,13 @@ login = async function (req, res) {
   try {
     let tokenSet = await client.grant({
       grant_type: 'password',
-      username: 'agus',
-      password: 'agus'
+      username: credentials.username,
+      password: credentials.password,
     });
-    const users = await kcAdminClient.users.findOne({"username": credentials.username, "password":credentials.password});
-      
-    console.log(users);
+    const users = await kcAdminClient.users.findOne({username:credentials.username});
 
-    res.status(200).send({"username":users[0].username, "email":users[0].email,
-     "firstName":users[0].firstName, "lastName":users[0].lastName, "membership":users.attributes.membership[0]});
+    const object = {username:users[0].username, email:users[0].email, firstName:users[0].firstName, lastName:users[0].lastName, membership:users[0].attributes.membership[0]}
+    res.status(200).send(object);
 
   } catch (error) {
     res.status(400).send(false);
