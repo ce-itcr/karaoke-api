@@ -1,25 +1,31 @@
 const express = require('express');
 const parser = require('body-parser');
 const router = express.Router();
-var jsonParser = parser.json();
-const { getSong, postSong, updateSong, deleteSong, getSongLyrics, updateSongLyrics,
+const { getSong, postSong, updateSongInfo, deleteSelectedSong, getSongLyrics, updateSongLyrics,
         getAllSongs, songSearch } = require('../components/songsComponent');
 
+//
+router.get('/getAllSongs', getAllSongs);
 
-router.get('/', getAllSongs);
+//Listo        http://localhost:5000/songs/getSong/{"songName":"Casin","songAuthor":"glue70"}
+router.get('/getSong/:filter', getSong);
 
-router.get('/:id', getSong);
-
+//
 router.get('/:id/lyrics', getSongLyrics);
 
-router.post('/', jsonParser, postSong);
+//
+router.post('/', postSong);
 
-router.put('/', jsonParser, updateSong);
+//
+router.put('/updateSong/:filter/:update', updateSongInfo);
 
-router.delete('/:id', deleteSong);
+//
+router.delete('/:id', deleteSelectedSong);
 
-router.put('/:id/lyrics', jsonParser, updateSongLyrics);
+//
+router.put('/:id/lyrics', updateSongLyrics);
 
+//
 router.get('/search/:data', songSearch);
 
 module.exports = router;

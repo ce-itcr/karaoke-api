@@ -1,6 +1,7 @@
 
 // connection with mongodb 
 let uri = 'mongodb+srv://Admin:Admin@karaoke.geity.mongodb.net/KaraokeDB?retryWrites=true&w=majority';
+const { object } = require('joi');
 let mongoose = require('mongoose');
 mongoose.connect(uri, () => console.log('DB conectada'));
 
@@ -41,26 +42,17 @@ createSong = (name, author, album, lyrics, cAuthor, cDate, mAuthor, mDate) => {
 
 }
 
-findSong = (filter) => {
-    song.findOne(filter, (error, data) =>
-    {
-    if(error){
-        console.log(error);
-    }else{
-        console.log(data);
-    }
-})
+/*
+findSong = async (filter) => {
+    const obj = JSON.parse(filter);
+    return await song.findOne(obj);
 }
 
 updateSong = (filter, update) => {
-    song.updateOne(filter, update, (error, data) => {
-        if(error){
-            console.log('Error al modificar cancion');
-        }else{
-            console.log('Cancion modificada correctamente');
-        }
-    });
+    
 }
+
+*/
 
 deleteSong = (filter) => {
     song.deleteOne(filter, (error, data) => {
@@ -71,4 +63,4 @@ deleteSong = (filter) => {
         }
     });
 }
-module.exports = {findSong, createSong, updateSong, deleteSong};
+module.exports = {song};

@@ -1,24 +1,40 @@
 
-const express = require('express');
 const Joi = require('joi');
+const {song} = require('../shared/database');
 
 // get song file
 const getSong = (req, res) => {
-    res.status(200).send('getSong');
+    const filter = JSON.parse(req.params.filter);
+    song.findOne(filter, (error, data) =>
+    {
+    if(error){
+        res.status(400).send('Error');
+    }else{
+        res.status(200).send(data);
+    }})
 };
+
+// update song file
+const updateSongInfo = (req, res) => {
+    const filter = JSON.parse(req.params.filter);
+    const update = JSON.parse(req.params.update);
+    song.updateOne(filter, update, (error, data) => {
+        if(error){
+            res.status(400).send('Error al modificar la cancion');
+        }else{
+            res.status(200).send('Cancion modificada correctamente');
+        }});
+};
+
 
 // post song file
 const postSong = (req, res) => {
     res.status(200).send('postSong');
 };
 
-// update song file
-const updateSong = (req, res) => {
-    res.status(200).send('updateSong');
-};
 
 // delete song file
-const deleteSong = (req, res) => {
+const deleteSelectedSong = (req, res) => {
     res.status(200).send('deleteSong');
 };
 
@@ -43,8 +59,7 @@ const songSearch = (req, res) => {
 };
 
 module.exports = {
-    getSong, postSong, updateSong, deleteSong,
-    getSongLyrics, updateSongLyrics,
-    getAllSongs,
+    getSong, postSong, updateSongInfo, deleteSelectedSong,
+    getSongLyrics, updateSongLyrics, getAllSongs,
     songSearch
 }
