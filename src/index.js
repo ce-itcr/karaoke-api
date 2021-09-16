@@ -15,7 +15,7 @@ const app = express();
 app.use(express.json());
 app.use(cors({origin: 'http://localhost:3000'}));
 
-app.use('/songs', songsRouter);
+app.use('/karaoke', songsRouter);
 
 app.get('/', (req, res) => { return res.status(200).send('Hello World from Karaoke´s API'); });
 app.get('*', (req, res)  => { res.status(405).send('Method does not exist'); });

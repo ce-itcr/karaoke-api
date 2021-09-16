@@ -9,37 +9,39 @@ let settings = {
     clientId: 'karaokeclient'
   };
 
-login = async function () {
+login = async function (req, res) {
 
-const kcAdminClient = new adminClient({baseUrl:'http://localhost:8180/auth', realmName:'karaoke'}); 
+  const kcAdminClient = new adminClient({baseUrl:'http://localhost:8180/auth', realmName:'karaoke'}); 
+  const credentials = JSON.parse(req.params.credentials);
 
-await kcAdminClient.auth(settings);
+  await kcAdminClient.auth(settings);
 
-const keycloakIssuer = await Issuer.discover(
-  'http://localhost:8180/auth/realms/karaoke',
-);
+  const keycloakIssuer = await Issuer.discover(
+    'http://localhost:8180/auth/realms/karaoke',
+  );
 
-const client = new keycloakIssuer.Client({
-  client_id: 'karaokeclient',
-  token_endpoint_auth_method: 'none',
-});
-
-let tokenSet = await client.grant({
-  grant_type: 'password',
-  username: 'agus',
-  password: 'agus',
-});
-
-setInterval(async () => {
-    const refreshToken = tokenSet.refresh_token;
-    tokenSet = await client.refresh(refreshToken);
-    kcAdminClient.setAccessToken(tokenSet.access_token);
-    }, 58 * 1000);
-
-    
+  const client = new keycloakIssuer.Client({
+    client_id: 'karaokeclient',
+    token_endpoint_auth_method: 'none',
+  });
+  
+  
+  try {
+    let tokenSet = await client.grant({
+      grant_type: 'password',
+      username: credentials.username,
+      password: credentials.password,
+    });
     const users = await kcAdminClient.users.find();
-
+      
     console.log(users[0]);
+
+    res.status(200).send(users[0]);
+
+  } catch (error) {
+    res.status(400).send(false);
+  }
+      
 };
 
 module.exports = {login};
