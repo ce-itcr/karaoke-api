@@ -35,7 +35,8 @@ login = async function (req, res) {
     });
     const users = await kcAdminClient.users.findOne({username:credentials.username});
 
-    const object = {username:users[0].username, email:users[0].email, firstName:users[0].firstName, lastName:users[0].lastName, membership:users[0].attributes.membership[0]}
+    const object = {username:users[0].username, mail:users[0].email, fullName:(users[0].firstName + " " + users[0].lastName), 
+    userType:users[0].attributes.membership[0], profilePicture:users[0].attributes.profilePicture[0], location:users[0].attributes.location[0]}
     res.status(200).send(object);
 
   } catch (error) {
