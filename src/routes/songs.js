@@ -12,7 +12,7 @@ router.get('/getAllSongs', getAllSongs);
 router.get('/getSong/:filter', getSong);
 
 //Listo        http://localhost:5000/karaoke/createSong/{"songName":"La Cucaracha","songAuthor":"Yo","songAlmbum":"Nose","songLyrics":"La cucaracha ya no puede caminar","creationAuthor":"Agustin","creationDate":"Hoy","modificationAuthor":"Angelito","modificationDate":"hoy"}
-router.post('/createSong/:data', postSong);
+router.post('/createSong', postSong);
 
 //Listo        http://localhost:5000/karaoke/updateSong/{ "songName":"Casin", "songAuthor":"glue70"}/{"modificationAuthor":"Momboñombo Moñagallo"}
 router.put('/updateSong/:filter/:update', updateSongInfo);

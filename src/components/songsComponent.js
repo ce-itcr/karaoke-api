@@ -31,11 +31,9 @@ const updateSongInfo = (req, res) => {
 
 // post song file
 const postSong = (req, res) => {
-    const data = JSON.parse(req.params.data);
-    console.log(data);
-    song.create(data, function (err, info) {
+    console.log(req.body);
+    song.create(req.body, function (err, info) {
         if (err){
-            console.log(error)
             res.status(400).send('Error al crear cancion');
         }else{
             res.status(200).send('Cancion creada');
