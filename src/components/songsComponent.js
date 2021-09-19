@@ -19,8 +19,7 @@ const getSong = async (req, res) => {
 // update song file
 const updateSongInfo = (req, res) => {
     const filter = JSON.parse(req.params.filter);
-    const update = JSON.parse(req.params.update);
-    song.updateOne(filter, update, (error, data) => {
+    song.updateOne(filter, req.body, (error, data) => {
         if(error){
             res.status(400).send('Error al modificar la cancion');
         }else{

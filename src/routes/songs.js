@@ -15,7 +15,7 @@ router.get('/getSong/:filter', getSong);
 router.post('/createSong', postSong);
 
 //Listo        http://localhost:5000/karaoke/updateSong/{ "songName":"Casin", "songAuthor":"glue70"}/{"modificationAuthor":"Momboñombo Moñagallo"}
-router.put('/updateSong/:filter/:update', updateSongInfo);
+router.put('/updateSong/:filter', updateSongInfo);
 
 //Listo        http://localhost:5000/karaoke/deleteSong/{"songName":"Mr Blue Sky", "songAuthor":"ELO"}
 router.delete('/deleteSong/:filter', deleteSelectedSong);
