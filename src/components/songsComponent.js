@@ -12,7 +12,7 @@ const getSong = async (req, res) => {
     }else{
         console.log(data);
         res.status(200).send(data);
-    }})
+    }}).clone().catch(function(err){ console.log(err)})
 };
 
 
@@ -21,13 +21,12 @@ const updateSongInfo = (req, res) => {
     const filter = JSON.parse(req.params.filter);
     var body = req.body;
     body["modificationDate"] = getFullDate();
-    res.status(200).send(body);
-    /*song.updateOne(filter, req.body, (error, data) => {
+    song.updateOne(filter, req.body, (error, data) => {
         if(error){
             res.status(400).send('Error al modificar la cancion');
         }else{
             res.status(200).send('Cancion modificada correctamente');
-        }});*/
+        }});
 };
 
 
