@@ -19,12 +19,15 @@ const getSong = async (req, res) => {
 // update song file
 const updateSongInfo = (req, res) => {
     const filter = JSON.parse(req.params.filter);
-    song.updateOne(filter, req.body, (error, data) => {
+    var body = req.body;
+    body["modificationDate"] = getFullDate();
+    res.status(200).send(body);
+    /*song.updateOne(filter, req.body, (error, data) => {
         if(error){
             res.status(400).send('Error al modificar la cancion');
         }else{
             res.status(200).send('Cancion modificada correctamente');
-        }});
+        }});*/
 };
 
 
@@ -77,7 +80,23 @@ const getAllSongs = (req, res) => {
 
 // search for matches within lyrics, author, and album
 const songSearch = (req, res) => {
-    res.status(200).send('songSearch');
+    const name = req.body["category"];
+    const regex = req.body["filter"];
+    song.find({name: new RegExp(regex, "i") }, (error, data) => {
+        if(error){
+            res.status(400).send('Error al buscar canciones');
+        }else{
+            res.status(200).send(data);
+        }
+    });
+};
+
+function getFullDate(){
+    const date = new Date();
+    var day = date.getDate().toString();
+    var month = (date.getMonth()+1).toString();
+    var year = date.getFullYear().toString();
+    return month + "/" + day + "/" + year;
 };
 
 module.exports = {
