@@ -5,7 +5,7 @@ var httpclient = require('chai-http');
 chai.use(httpclient);
 
 describe('Comunicación con la base de datos', function() {
-    /** 
+    
     it('Agregar canción', function(done){
         chai.request('https://karaokeapi.josevenegasv.com').post('/karaoke/createSong').send({
             "id":"Fuentes de Ortiz&Ed Maverick",
@@ -26,7 +26,7 @@ describe('Comunicación con la base de datos', function() {
             done();
         });
     });
-    */
+    
     it('Buscar canción', function(done){
         chai.request('https://karaokeapi.josevenegasv.com').get('/karaoke/getSong/{"songName":"Fuentes de Ortiz","songAuthor":"Ed Maverick" }')
         .end((err, res) => {
@@ -34,7 +34,7 @@ describe('Comunicación con la base de datos', function() {
             done();
         });
     });
-    /** 
+
     it('Modificar canción', function(done){
         chai.request('https://karaokeapi.josevenegasv.com').put('/karaoke/updateSong/{ "songName":"Fuentes de Ortiz", "songAuthor":"Ed Maverick"}').send({"modificationAuthor":"Momboñombo Moñagallo"})
         .end((err, res) => {
@@ -43,7 +43,7 @@ describe('Comunicación con la base de datos', function() {
             done();
         });
     });
-    */
+    
     it('Borrar canción', function(done){
         chai.request('https://karaokeapi.josevenegasv.com').delete('/karaoke/deleteSong/{"songName":"Fuentes de Ortiz", "songAuthor":"Ed Maverick"}')
         .end((err, res) => {
