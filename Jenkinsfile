@@ -4,8 +4,7 @@ pipeline {
 
         stage ('Build') {
             steps{
-                sh 'cd ~'
-                sh "ssh ubuntu@ec2-18-217-235-171.us-east-2.compute.amazonaws.com -i 'VM-KaraokeApp.pem' -f 'bash build.sh testing > /dev/null 2>&1'"
+                sshPublisher(publishers: [sshPublisherDesc(configName: 'vmkey', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'bash build.sh testing > /dev/null 2>&1', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
             }
         }
 
