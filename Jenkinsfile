@@ -4,9 +4,7 @@ pipeline {
 
         stage ('Build') {
             steps{
-                sh 'git checkout testing'
-                sh 'git pull https://github.com/ce-itcr/karaoke-api.git'
-                sh 'npm start'
+                sh 'ssh karaokeapi.josevenegasv.com -l ubuntu -i VM-KaraokeApp.pem -f 'bash build.sh testing > /dev/null 2>&1''
             }
         }
 
