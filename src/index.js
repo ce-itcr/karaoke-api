@@ -9,7 +9,7 @@ const { set } = require('mongoose');
 
 const {login} = require('./components/loginComponent');
 
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 5000;
 
 const app = express();
 app.use(express.json());
