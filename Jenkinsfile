@@ -4,7 +4,8 @@ pipeline {
 
         stage ('Build') {
             steps{
-                sh 'ls'
+                sh 'cd ~'
+                sh "ssh ubuntu@ec2-18-217-235-171.us-east-2.compute.amazonaws.com -i 'VM-KaraokeApp.pem' -f 'bash build.sh testing > /dev/null 2>&1'"
             }
         }
 
