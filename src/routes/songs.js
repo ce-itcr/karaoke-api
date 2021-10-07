@@ -3,7 +3,7 @@ const parser = require('body-parser');
 const router = express.Router();
 const { getSong, postSong, updateSongInfo, deleteSelectedSong, getSongLyrics, updateSongLyrics,
         getAllSongs, songSearch} = require('../components/songsComponent');
-const {login} = require('../components/loginComponent')
+
 
 //Listo        http://localhost:5000/karaoke/getAllSongs
 router.get('/getAllSongs', getAllSongs);
@@ -22,8 +22,5 @@ router.delete('/deleteSong/:filter', deleteSelectedSong);
 
 //
 router.get('/search/:data', songSearch);
-
-//
-router.get('/login/:credentials', login);
 
 module.exports = router;

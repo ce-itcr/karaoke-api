@@ -5,6 +5,7 @@ var issuer = Issuer.Issuer;
 const express = require('express');
 const cors = require('cors');
 const songsRouter = require('./routes/songs');
+const loginRouter = require('./routes/login');
 const { set } = require('mongoose');
 
 const {login} = require('./components/loginComponent');
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(cors({origin: 'http://localhost:3000'}));
 
 app.use('/karaoke', songsRouter);
+app.use('/karaoke', loginRouter)
 
 app.get('/', (req, res) => { return res.status(200).send('Hello World from Karaoke´s API'); });
 app.get('*', (req, res)  => { res.status(405).send('Method does not exist'); });
