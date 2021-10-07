@@ -12,13 +12,13 @@ let settings = {
 login = async function (req, res) {
 
   
-  const kcAdminClient = new adminClient({baseUrl:'http://localhost:8180/auth', realmName:'karaoke'}); 
+  const kcAdminClient = new adminClient({baseUrl:'https://keycloak.josevenegasv.com/auth', realmName:'karaoke'}); 
   const credentials = JSON.parse(req.params.credentials);
 
   await kcAdminClient.auth(settings);
 
   const keycloakIssuer = await Issuer.discover(
-    'http://localhost:8180/auth/realms/karaoke',
+    'https://keycloak.josevenegasv.com/auth/realms/karaoke',
   );
 
   const client = new keycloakIssuer.Client({
@@ -34,7 +34,7 @@ login = async function (req, res) {
       password: credentials.password,
     });
     const users = await kcAdminClient.users.findOne({username:credentials.username});
-
+    
     const object = {username:users[0].username, mail:users[0].email, fullName:(users[0].firstName + " " + users[0].lastName), 
     userType:users[0].attributes.membership[0], profilePicture:users[0].attributes.profilePicture[0], location:users[0].attributes.location[0]}
     res.status(200).send(object);
