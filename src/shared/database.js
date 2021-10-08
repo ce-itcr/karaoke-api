@@ -10,7 +10,6 @@ let userSchema = new mongoose.Schema({
     songName : String,
     songAuthor : String,
     songAlbum : String,
-    songLyrics : String,
     creationAuthor : String,
     creationDate : String,
     songMp3 : String,

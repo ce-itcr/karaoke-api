@@ -32,7 +32,6 @@ const updateSongInfo = (req, res) => {
 
 // post song file
 const postSong = (req, res) => {
-    console.log(req.body);
     song.create(req.body, function (err, info) {
         if (err){
             res.status(400).send('Error al crear cancion');
@@ -56,16 +55,6 @@ const deleteSelectedSong = (req, res) => {
     
 };
 
-// get song lyrics
-const getSongLyrics = (req, res) => {
-    res.status(200).send('getSongLyrics');
-};
-
-// update song lyrics
-const updateSongLyrics = (req, res) => {
-    res.status(200).send('updateSongLyrics');
-};
-
 // get all the songs
 const getAllSongs = (req, res) => {
     song.find({}, (error, data) => {
@@ -79,9 +68,29 @@ const getAllSongs = (req, res) => {
 
 // search for matches within lyrics, author, and album
 const songSearch = (req, res) => {
-    const name = req.body["category"];
-    const regex = req.body["filter"];
-    song.find({name: new RegExp(regex, "i") }, (error, data) => {
+    var params = JSON.parse(req.params.data);
+    var name = params.category;
+    var regex = params.filter;
+    var query;
+    switch (name) {
+        case "songLRC":
+            console.log("Entro");
+            query = {"songLRC": new RegExp(regex) };
+            console.log(query);
+            console.log("Espacio");
+            break;
+        case "songName":
+            query = {"songName": new RegExp(regex) };
+            break;
+        case "songAuthor":
+            query = {"songAuthor": new RegExp(regex) };
+            break;
+        case "songAlbum":
+            query = {"songAlbum": new RegExp(regex) };
+            break;
+    }
+    console.log(query);
+    song.find(query, (error, data) => {
         if(error){
             res.status(400).send('Error al buscar canciones');
         }else{
@@ -100,6 +109,5 @@ function getFullDate(){
 
 module.exports = {
     getSong, postSong, updateSongInfo, deleteSelectedSong,
-    getSongLyrics, updateSongLyrics, getAllSongs,
-    songSearch,
+    getAllSongs, songSearch,
 }
