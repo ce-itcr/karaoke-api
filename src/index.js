@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 5000;
 
 const app = express();
 app.use(express.json());
-app.use(cors({origin: 'https://karaoke-ceitcr.netlify.app', optionsSuccessStatus: 200 }));
+app.use(cors({origins: "https://karaoke-ceitcr.netlify.app,http://localhost:3000", optionsSuccessStatus: 200 }));
 
 app.use('/karaoke', songsRouter);
 app.use('/karaoke', loginRouter)
