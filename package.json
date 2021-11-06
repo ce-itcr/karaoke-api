@@ -4,8 +4,8 @@
   "description": "karaoke's API",
   "main": "index.js",
   "scripts": {
-    "start": "netlify-lambda serve functions",
-    "build": "./node_modules/.bin/netlify-lambda build src"
+    "start": "nodemon src/index.js",
+    "test": "mocha src/test/*.test.js --recursive --exit --timeout 10000"
   },
   "repository": {
     "type": "git",
@@ -19,13 +19,15 @@
   "homepage": "https://github.com/ce-itcr/karaoke-api#readme",
   "dependencies": {
     "@keycloak/keycloak-admin-client": "^15.0.2",
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "joi": "^17.4.2",
     "keycloak-admin-client": "^0.12.0",
-    "mongoose": "^6.0.5",
-    "netlify-lambda": "^2.0.14",
+    "mocha": "^9.1.2",
+    "mongoose": "^6.0.9",
     "openid-client": "^4.7.5",
-    "serverless-http": "^2.7.0"
+    "pm2": "^5.1.2"
   }
 }

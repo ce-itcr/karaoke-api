@@ -12,13 +12,15 @@ const getSong = async (req, res) => {
     }else{
         console.log(data);
         res.status(200).send(data);
-    }})
+    }}).clone().catch(function(err){ console.log(err)})
 };
 
 
 // update song file
 const updateSongInfo = (req, res) => {
     const filter = JSON.parse(req.params.filter);
+    var body = req.body;
+    body["modificationDate"] = getFullDate();
     song.updateOne(filter, req.body, (error, data) => {
         if(error){
             res.status(400).send('Error al modificar la cancion');
@@ -30,7 +32,6 @@ const updateSongInfo = (req, res) => {
 
 // post song file
 const postSong = (req, res) => {
-    console.log(req.body);
     song.create(req.body, function (err, info) {
         if (err){
             res.status(400).send('Error al crear cancion');
@@ -54,16 +55,6 @@ const deleteSelectedSong = (req, res) => {
     
 };
 
-// get song lyrics
-const getSongLyrics = (req, res) => {
-    res.status(200).send('getSongLyrics');
-};
-
-// update song lyrics
-const updateSongLyrics = (req, res) => {
-    res.status(200).send('updateSongLyrics');
-};
-
 // get all the songs
 const getAllSongs = (req, res) => {
     song.find({}, (error, data) => {
@@ -77,11 +68,43 @@ const getAllSongs = (req, res) => {
 
 // search for matches within lyrics, author, and album
 const songSearch = (req, res) => {
-    res.status(200).send('songSearch');
+    var params = JSON.parse(req.params.data);
+    var name = params.category;
+    var regex = params.filter;
+    var query;
+    switch (name) {
+        case "songLRC":
+            query = {"songLRC": new RegExp(regex) };
+            break;
+        case "songName":
+            query = {"songName": new RegExp(regex) };
+            break;
+        case "songAuthor":
+            query = {"songAuthor": new RegExp(regex) };
+            break;
+        case "songAlbum":
+            query = {"songAlbum": new RegExp(regex) };
+            break;
+    }
+    console.log(query);
+    song.find(query, (error, data) => {
+        if(error){
+            res.status(400).send('Error al buscar canciones');
+        }else{
+            res.status(200).send(data);
+        }
+    });
+};
+
+function getFullDate(){
+    const date = new Date();
+    var day = date.getDate().toString();
+    var month = (date.getMonth()+1).toString();
+    var year = date.getFullYear().toString();
+    return month + "/" + day + "/" + year;
 };
 
 module.exports = {
     getSong, postSong, updateSongInfo, deleteSelectedSong,
-    getSongLyrics, updateSongLyrics, getAllSongs,
-    songSearch,
+    getAllSongs, songSearch,
 }
