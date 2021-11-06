@@ -35,6 +35,15 @@ describe('Comunicación con la base de datos', function() {
         });
     });
 
+    it('Buscar canción por letra', function(done){
+        chai.request('https://karaokeapi.josevenegasv.com').get('/karaoke/search/{"category":"songLRC","filter":"Ya dime si quieres estar conmigo o si mejor me voy" }')
+        .end((err, res) => {
+            expect(res).to.have.status(200);
+            done();
+        });
+    });
+
+
     it('Modificar canción', function(done){
         chai.request('https://karaokeapi.josevenegasv.com').put('/karaoke/updateSong/{ "songName":"Fuentes de Ortiz", "songAuthor":"Ed Maverick"}').send({"modificationAuthor":"Momboñombo Moñagallo"})
         .end((err, res) => {

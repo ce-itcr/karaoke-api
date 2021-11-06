@@ -74,10 +74,7 @@ const songSearch = (req, res) => {
     var query;
     switch (name) {
         case "songLRC":
-            console.log("Entro");
             query = {"songLRC": new RegExp(regex) };
-            console.log(query);
-            console.log("Espacio");
             break;
         case "songName":
             query = {"songName": new RegExp(regex) };
