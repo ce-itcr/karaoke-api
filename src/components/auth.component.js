@@ -1,0 +1,27 @@
+const { getConnection } = require('../shared/connection');
+const { isCorrectPassword } = require('../shared/auth/auth.functions');
+
+
+const verifyUser = (req, res) => {
+    console.log(req.body)
+    const { userId, password } = req.body;
+
+    const databaseConnection = getConnection();
+    databaseConnection.collection('users').findOne({ userId }, (error, user) => {
+        if(error) {
+            res.status(400).send('⛔️ An error occurred verifying the user ... \n[Error]: ' + error);  
+        } else if (!user) {
+            res.status(401).send('⚠️ There are no users with the specified specifications ... \n[Error]: Incorrect userId');
+        } 
+        else {
+            let response = isCorrectPassword(password, user.password);
+            if(!response) {
+                res.status(401).send('⚠️ There are no users with the specified specifications ... \n[Error]: Incorrect userId or password');
+            } else {
+                res.status(200).send('Welcome to karaoke!');
+            }
+        }
+    })
+};
+
+module.exports = { verifyUser }

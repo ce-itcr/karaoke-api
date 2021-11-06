@@ -12,7 +12,7 @@ if (process.env.NODE_ENV == 'test'){
             process.exit(0);
         }
         database = client.db('KaraokeDB');
-        console.log('☑️  The server has successfully connected to the database ... ')
+        console.log('☑️  The server has successfully connected to the KaraokeDB ... ')
     });
 }
 
