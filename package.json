@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon src/index.js",
-    "test": "mocha src/test/*.test.js --recursive --exit --timeout 10000"
+    "test": "mocha src/tests/*.test.js --recursive --exit --timeout 10000"
   },
   "repository": {
     "type": "git",
