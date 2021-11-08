@@ -8,9 +8,9 @@ function assertStrictEquality (a, b, message = null) {
       console.log(`----- CONFIRMED: ${a} === ${b} -----`);
     } catch (e) {
       if (e instanceof AssertionError) {
-        //console.log(e);
+        console.log(e);
       } else {
-        //console.log(e);
+        console.log(e);
       }
     }
   }
