@@ -37,7 +37,7 @@ const createSong = (req, res) => {
     let songId = req.body.songId;
 
     const databaseConnection = getConnection();
-    databaseConnection.collection("users").findOne({"songId": songId}, { projection: { _id:0 } }, 
+    databaseConnection.collection("Songs").findOne({"songId": songId}, { projection: { _id:0 } }, 
         function(error, data) {
             if (error) {
                 res.status(400).send('⛔️ An error occurred getting single song ... \n[Error]: ' + error);
