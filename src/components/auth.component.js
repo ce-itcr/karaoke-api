@@ -24,4 +24,22 @@ const verifyUser = (req, res) => {
     })
 };
 
-module.exports = { verifyUser }
+const getSingleUser = (req, res) => {
+    let userId = req.params.userId;
+    console.log(userId)
+    const databaseConnection = getConnection();
+    databaseConnection.collection("users").findOne({"userId": userId}, { projection: { _id:0 } }, 
+        function(error, data) {
+            if (error) {
+                res.status(400).send('⛔️ An error occurred getting single users ... \n[Error]: ' + error);
+            } else {
+                if(data === null){
+                    res.status(404).send('⚠️ There are no users with the specified specifications ...');
+                } else{
+                    res.status(200).send(data);
+                }
+            }
+      });
+};
+
+module.exports = { verifyUser, getSingleUser }
