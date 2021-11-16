@@ -37,7 +37,7 @@ const createSong = (req, res) => {
     let songId = req.body.songId;
 
     const databaseConnection = getConnection();
-    databaseConnection.collection("Songs").findOne({"songId": songId}, { projection: { _id:0 } }, 
+    databaseConnection.collection("Songs").findOne({"id": songId}, { projection: { _id:0 } }, 
         function(error, data) {
             if (error) {
                 res.status(400).send('⛔️ An error occurred getting single song ... \n[Error]: ' + error);
@@ -65,7 +65,7 @@ const updateSong = (req, res) => {
      
     var newData = { $set: jsonBodyAndModificationDate };
 
-    databaseConnection.collection('Songs').updateOne({'songId': songId}, newData, 
+    databaseConnection.collection('Songs').updateOne({'id': songId}, newData, 
         function(error) {
             if(error) {
                 res.status(400).send('⛔️ An error occurred updating song ... \n[Error]: ' + error);  
@@ -81,7 +81,7 @@ const removeSong = (req, res) => {
     let songId = req.params.songId;
 
     const databaseConnection = getConnection();
-    databaseConnection.collection('Songs').deleteMany({'songId': songId}, 
+    databaseConnection.collection('Songs').deleteMany({'id': songId}, 
         function(error) {
             if(error) {
                 res.status(400).send('⛔️ An error occurred deleting songs ... \n[Error]: ' + error);  
