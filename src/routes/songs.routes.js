@@ -9,9 +9,9 @@ router.get('/all', getAllSongs);
 
 router.get('/:songId', getSingleSong);
 
-router.post('/', createSong);
+router.post('/', jsonParser, createSong);
 
-router.put('/:songId', updateSong);
+router.put('/:songId', jsonParser, updateSong);
 
 router.delete('/:songId', removeSong);
 

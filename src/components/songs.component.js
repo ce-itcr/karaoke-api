@@ -59,12 +59,12 @@ const createSong = (req, res) => {
 
 const updateSong = (req, res) => {
     let songId = req.params.songId;
+    console.log(req.body);
     let modificationDate = { modificationDate: getFullDate() };
     var jsonBodyAndModificationDate = jsonConcat(req.body, modificationDate)
-    const databaseConnection = getConnection();
-     
     var newData = { $set: jsonBodyAndModificationDate };
-
+    
+    const databaseConnection = getConnection();
     databaseConnection.collection('Songs').updateOne({'id': songId}, newData, 
         function(error) {
             if(error) {
