@@ -34,7 +34,9 @@ const getSingleSong = async (req, res) => {
 
 
 const createSong = (req, res) => {
-    let songId = req.body.songId;
+    let songId = req.body.songName + "&" + req.body.songAuthor
+    let generatedData = { songId: req.body.songName + "&" + req.body.songAuthor, creationDate: getFullDate(), played: '0', songLevel: "hard" };
+    var jsonBodyAndGeneratedData = jsonConcat(req.body, generatedData)
 
     const databaseConnection = getConnection();
     databaseConnection.collection("Songs").findOne({"id": songId}, { projection: { _id:0 } }, 
@@ -43,9 +45,9 @@ const createSong = (req, res) => {
                 res.status(400).send('⛔️ An error occurred getting single song ... \n[Error]: ' + error);
             } else {
                 if(data === null){
-                    databaseConnection.collection('Songs').insertOne(req.body, (error, data) => {
+                    databaseConnection.collection('Songs').insertOne(jsonBodyAndGeneratedData, (error, data) => {
                         if(error){
-                            res.status(400).send('⛔️ An error occurred creating songs ... \n[Error]: ' + error);  
+                            res.status(400).send('⛔️ An error occurred creating the song ... \n[Error]: ' + error);  
                         } else {
                             res.status(200).send('☑️ The song was created successfully ... ');
                         }
@@ -59,7 +61,6 @@ const createSong = (req, res) => {
 
 const updateSong = (req, res) => {
     let songId = req.params.songId;
-    console.log(req.body);
     let modificationDate = { modificationDate: getFullDate() };
     var jsonBodyAndModificationDate = jsonConcat(req.body, modificationDate)
     var newData = { $set: jsonBodyAndModificationDate };
