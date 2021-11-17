@@ -42,4 +42,22 @@ const getSingleUser = (req, res) => {
       });
 };
 
-module.exports = { verifyUser, getSingleUser }
+
+const updateFavorites = (req, res) => {
+    let userId = req.params.userId;
+    var newData = { $set: req.body };
+
+    const databaseConnection = getConnection();
+    databaseConnection.collection('users').updateOne({'userId': userId}, newData, 
+        function(error) {
+            if(error) {
+                res.status(400).send('⛔️ An error occurred updating favorites ... \n[Error]: ' + error);  
+            } else {
+                res.status(200).send('☑️ The favorite list was modified successfully ... ');
+            }
+    });
+};
+
+
+
+module.exports = { verifyUser, getSingleUser,updateFavorites }
