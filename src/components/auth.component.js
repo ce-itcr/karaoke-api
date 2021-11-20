@@ -82,6 +82,10 @@ const updatePlayedSongs = (req, res) => {
                             var timesPlayed = data.playedSongs[k][4] + 1;
                             data.playedSongs[k][4] = timesPlayed;
 
+                            if(score > data.playedSongs[k][5]){
+                                data.playedSongs[k][5] = score;
+                            }
+
                             var updatedData = { $set: { playedSongs: data.playedSongs } };
 
                             databaseConnection.collection('users').updateOne({'userId': userId},  updatedData, 
