@@ -82,6 +82,10 @@ const updatePlayedSongs = (req, res) => {
                             var timesPlayed = data.playedSongs[k][4] + 1;
                             data.playedSongs[k][4] = timesPlayed;
 
+                            var scoresList = data.playedSongs[k][6].push(score)
+                            //data.playedSongs[k][6] = data.playedSongs[k][6].push(score);
+                            console.log(scoresList);
+
                             if(score > data.playedSongs[k][5]){
                                 data.playedSongs[k][5] = score;
                             }
@@ -102,7 +106,7 @@ const updatePlayedSongs = (req, res) => {
 
                 } else {
                     var oldData = data.playedSongs;
-                    var newData = [songName, songAuthor, songAlbum, songCover, 1, score];
+                    var newData = [songName, songAuthor, songAlbum, songCover, 1, score, [score]];
                     oldData.push(newData);
                     var finalData = { $set: { playedSongs: oldData } };
 
