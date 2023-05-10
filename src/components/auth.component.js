@@ -76,12 +76,15 @@ const createUser = (req, res) => {
 
 const getSingleUser = (req, res) => {
     let userId = req.params.userId;
+    console.log("🚀 ~ file: auth.component.js:79 ~ getSingleUser ~ userId:", userId)
     const databaseConnection = getConnection();
     databaseConnection.collection("users").findOne({"userId": userId}, { projection: { _id:0 } }, 
         function(error, data) {
             if (error) {
                 res.status(400).send('⛔️ An error occurred getting single users ... \n[Error]: ' + error);
             } else {
+                console.log("🚀 ~ file: auth.component.js:94 ~ getSingleUser ~ data:", data)
+
                 if(data === null){
                     res.status(404).send('⚠️ There are no users with the specified specifications ...');
                 } else{
