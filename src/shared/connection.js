@@ -13,7 +13,6 @@ if (process.env.NODE_ENV == 'test'){
             process.exit(0);
         }
         database = client.db('karaoke');
-        console.log("🚀 ~ file: connection.js:16 ~ MongoClient.connect ~ database:", database)
         console.log('☑️  The server has successfully connected to the Karaoke ... ')
     });
 }
